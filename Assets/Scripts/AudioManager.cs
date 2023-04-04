@@ -8,33 +8,30 @@ using System.Linq;
 public class AudioManager : MonoBehaviour
 {
     public AudioSource audio;
-    public AudioClip introSpeech;
     public AudioClip agentSpeech;
     public GameObject begin;
 
-    public float timer = 0f;
+    private float timer = 0f;
     private bool introPlayed = false;
+    private int skipAppear;
 
     void Start()
     {
+        skipAppear = (int) (agentSpeech.length /2);
         Time.timeScale = 1f;
-        audio.PlayOneShot(introSpeech, 5f);
+        audio.PlayOneShot(agentSpeech, 5f);
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
-        if(timer> 44 && !introPlayed){
-            audio.PlayOneShot(agentSpeech, 5f);
-            introPlayed = true;
-        }
-        if(timer > 15){
+        if(timer > skipAppear){
             begin.SetActive(true);
         }
     }
 
-    public void beginChallenge(){
-        SceneManager.LoadScene("Selection");
+    public void gotoMainMenu(){
+          SceneManager.LoadScene("Selection");
     }
 }
