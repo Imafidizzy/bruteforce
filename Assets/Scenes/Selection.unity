@@ -205,6 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: {fileID: 436709009}
+  requirement: {fileID: 868838392}
   backArrow: {fileID: 756984257}
   frontArrow: {fileID: 1084994077}
 --- !u!1 &436709007

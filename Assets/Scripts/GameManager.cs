@@ -21,7 +21,11 @@ public class GameManager : MonoBehaviour
     private string answer;
     private bool hasWon = false;
     public bool hasPlayed = false;
-    private bool vigenereUnlocked = false;
+    private bool vigenereUnlocked = false;// Siwtch to true when you beat first level
+    public GameObject vigenereMeter;
+    public GameObject caesarMeter;
+    private int vigenereCharge = 10;
+    private int caesarCharge = 10;
     public GameObject caesarTool;
     public GameObject vigenereTool;
 
@@ -29,10 +33,16 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
-        answer = "WELCOME";
+        string currentScene = SceneManager.GetActiveScene().name;
+        if(currentScene=="Challenge3")
+        {
+            answer = "YOUHAVESEENTOOMUCH";
+        }
+
+        //Loads battery symbols when game start depending on charge available
+        updateCharge();
     }
 
-    // Update is called once per frame
     void Update()
     {   
         if(Input.GetKeyDown("1")){
@@ -45,8 +55,11 @@ public class GameManager : MonoBehaviour
 
         string scoreText;
         timer -= Time.deltaTime;
-        if(timer > 0){
+        if(timer > 0 && !hasWon){
             scoreText = Mathf.Floor(timer/60).ToString("00") + ":" +  Mathf.Floor(timer%60).ToString("00");
+        }
+        else if (hasWon){
+            scoreText = "";
         }
         else{
             scoreText = "00:00";
@@ -56,6 +69,9 @@ public class GameManager : MonoBehaviour
         if(timer <=0 || hasWon){
             EndLevel(hasWon);
         }
+
+        //charge logic
+
     }
 
     public void AttemptHack(){
@@ -83,7 +99,7 @@ public class GameManager : MonoBehaviour
     public void caesarDecrypt(){
         int key;
         bool succeed = int.TryParse(keyInputField.text, out key);
-        if(succeed){
+        if(succeed && caesarCharge>=3){
             key = key % 26;
             char [] buffer = codeInputField.text.ToUpper().ToCharArray();
             for(int i =0; i < buffer.Length; i++){
@@ -101,11 +117,23 @@ public class GameManager : MonoBehaviour
             }
             string result = new string(buffer);
             resultUI.SetText(result);
+            caesarCharge-=3;
+            updateCharge();
         }
-
     }
 
     public void vigenereDecrypt(){
         
+    }
+
+    private void updateCharge(){
+        foreach (Transform child in caesarMeter.transform) {
+             GameObject.Destroy(child.gameObject);
+        }
+        for(int i=0; i<caesarCharge; i++) {
+            GameObject battery = Instantiate(Resources.Load("Battery")) as GameObject;
+            battery.transform.SetParent(caesarMeter.transform);
+            battery.transform.localScale = new Vector3(1,1,1);
+        }
     }
 }

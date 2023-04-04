@@ -35,6 +35,6 @@ public class AudioManager : MonoBehaviour
     }
 
     public void beginChallenge(){
-        SceneManager.LoadScene("Challenge");
+        SceneManager.LoadScene("Selection");
     }
 }
