@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     public TMP_InputField keyInputField;
     public TMP_InputField codeInputField;
     public TMP_Text resultUI;
+    public TMP_InputField vigkeyInputField;
+    public TMP_InputField vigcodeInputField;
+    public TMP_Text vigresultUI;
     public float wait = 0f;
     private string answer;
     private bool hasWon = false;
@@ -122,7 +125,48 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void vigenereDecrypt(){
+    public void vigenereDecrypt()
+    {
+        string key = vigkeyInputField.text;
+        bool succeed = true;
+
+        foreach(char c in key)
+        {
+            if(!char.IsLetter(c))
+            {
+                succeed = false;
+                break;
+            }
+        }
+
+        //Means key only contains letters
+        if(succeed)
+        {
+            key = key.ToUpper();
+            string text = vigcodeInputField.text.ToUpper();
+
+            string oldtext = "";
+            int keyIndex = 0;
+            foreach(char c in text)
+            {
+                char keyLetter = key[keyIndex];
+                int alpha = (int)(keyLetter - 'A'); // number in the alphabet of letter of key letter
+
+                int alphaText = (int)(c - 'A'); // number in the alphabet of letter of input letter
+
+                int dif = alphaText - alpha;
+
+                int alphaNew = (dif + 26) % 26;
+
+                char oldLetter = (char) (alphaNew + 'A');
+
+                oldtext += oldLetter;
+
+                // Incrementing the key index 
+                keyIndex = (keyIndex + 1) % key.Length;
+            }
+            vigresultUI.SetText(oldtext);
+        }
         
     }
 
