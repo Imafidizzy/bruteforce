@@ -15,7 +15,16 @@ EditorBuildSettings:
     path: Assets/Scenes/Introduction.unity
     guid: d80f4f7129f3efd4a9524af5f2fad0cb
   - enabled: 1
+    path: Assets/Scenes/Selection.unity
+    guid: a49e081f3623a3d499bae2c3f20c7b26
+  - enabled: 1
     path: Assets/Scenes/Challenge1.unity
     guid: 3fc8acdd13e6c734bafef6554d6fdbcd
+  - enabled: 1
+    path: Assets/Scenes/Challenge2.unity
+    guid: 915be013f37528f4e97d0f70acee9845
+  - enabled: 1
+    path: Assets/Scenes/Challenge3.unity
+    guid: 256d2e2f8c663bd46ad79285d875087b
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: d174d4b312b9d8741986f8a083e974ee, type: 2}

@@ -264,7 +264,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 344307407}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: beginChallenge
+        m_MethodName: gotoMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -543,10 +543,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 344307405}
-  introSpeech: {fileID: 8300000, guid: 67635a11a49ff3e4997a5291ddc54bd6, type: 3}
-  agentSpeech: {fileID: 8300000, guid: 37c1d14595a2e3d4b9d9105bbae0c18a, type: 3}
+  agentSpeech: {fileID: 8300000, guid: 67635a11a49ff3e4997a5291ddc54bd6, type: 3}
   begin: {fileID: 129309008}
-  timer: 0
 --- !u!1 &490454579
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        skipAppear = (int) (agentSpeech.length /2);
+        skipAppear = (int) (agentSpeech.length /3);
         Time.timeScale = 1f;
         audio.PlayOneShot(agentSpeech, 5f);
     }
