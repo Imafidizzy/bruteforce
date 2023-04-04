@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     private string answer;
     private bool hasWon = false;
     public bool hasPlayed = false;
+    private bool vigenereUnlocked = false;
+    public GameObject caesarTool;
+    public GameObject vigenereTool;
 
 
     void Start()
@@ -31,7 +34,15 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        if(Input.GetKeyDown("1")){
+            caesarTool.SetActive(true);
+        }
+
+        if(Input.GetKeyDown("2") && vigenereUnlocked){
+            vigenereTool.SetActive(true);
+        }
+
         string scoreText;
         timer -= Time.deltaTime;
         if(timer > 0){
