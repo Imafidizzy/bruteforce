@@ -9,7 +9,7 @@ public class MissionSelect : MonoBehaviour
     private int mission_no = 0;
     public TMP_Text title;
     public TMP_Text requirement;
-    private string[] titles = {"1 : Tour De France", "2 : The Handler", "3 : Double Trouble"};
+    private string[] titles = {"1 : Tutorial", "2 : The French Connection", "3 : The Handler"};
     private string[] requirements = {"Tools Needed: Caesar Tool", "Tools Needed: Vigenere Tool","Tools Needed: Caesar Tool, Vigenere Tool"};
     public GameObject backArrow;
     public GameObject frontArrow;

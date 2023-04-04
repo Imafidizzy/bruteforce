@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
             answer = "YOUHAVESEENTOOMUCH";
         }
         else{
-            answer = "DONTTRUSTTHOSEWHOSENTYOU";
+            answer = "DONTTRUSTTHEM";
         }
         updateCaesarCharge();
         updateVigenereCharge();
@@ -98,14 +98,14 @@ public class GameManager : MonoBehaviour
             hasPlayed = true;
             if(win){
                 vigenereUnlocked = true;
-                audio.PlayOneShot(winAudio, 5f);  
+                audio.PlayOneShot(winAudio, 10f);  
             }
             else {
                 audio.PlayOneShot(loseAudio, 10f);
             }
         }
         if(wait > 11){
-            SceneManager.LoadScene("Titlescreen");
+            SceneManager.LoadScene("Selection");
             }
     }
 
@@ -129,6 +129,9 @@ public class GameManager : MonoBehaviour
                 buffer[i] = letter;
             }
             string result = new string(buffer);
+            if(result.Length > 30){
+                result= result.Substring(0,29);
+            }
             resultUI.SetText(result);
             caesarCharge-=3;
             updateCaesarCharge();
@@ -174,6 +177,9 @@ public class GameManager : MonoBehaviour
 
                 // Incrementing the key index 
                 keyIndex = (keyIndex + 1) % key.Length;
+            }
+            if(oldtext.Length > 30){
+                oldtext= oldtext.Substring(0,29);
             }
             vigresultUI.SetText(oldtext);
             vigenereCharge-=3;
