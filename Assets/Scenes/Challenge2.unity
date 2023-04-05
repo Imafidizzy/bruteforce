@@ -682,6 +682,7 @@ MonoBehaviour:
   caesarMeter: {fileID: 34870727}
   caesarTool: {fileID: 34870726}
   vigenereTool: {fileID: 1478965110}
+  missionNumber: 1
 --- !u!4 &92326310
 Transform:
   m_ObjectHideFlags: 0

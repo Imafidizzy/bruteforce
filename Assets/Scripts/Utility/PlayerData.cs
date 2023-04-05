@@ -46,14 +46,17 @@ namespace Utility
             Save();
         }
 
-        public Level GetLevel(int id)
+        public int GetCompletedLevelCount()
         {
-            return levels[id];
+            int result = levels.Values.Sum(x => x.Completed ? 1 : 0);
+            return result;
         }
 
-        public void SetLevel(int id, Level data)
+        public void CompleteLevel(int id)
         {
-            levels[id] = data;
+            Level level = levels[id];
+            level.Completed = true;
+            levels[id] = level;
             Save();
         }
     }

@@ -13,11 +13,14 @@ public class MissionSelect : MonoBehaviour
     private string[] requirements = {"Tools Needed: Caesar Tool", "Tools Needed: Vigenere Tool","Tools Needed: Caesar Tool, Vigenere Tool"};
     public GameObject backArrow;
     public GameObject frontArrow;
-    private int maxUnlocked = 0;
+    private int maxUnlocked;
 
+    private Utility.PlayerData PlayerData = new Utility.PlayerData();
 
     void Start()
     {
+        PlayerData.Load();
+        maxUnlocked = PlayerData.GetCompletedLevelCount();
         displayMission();
     }
 

@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject caesarMeter;
     public GameObject caesarTool;
     public GameObject vigenereTool;
+    public int missionNumber;
 
     private Utility.PlayerData PlayerData = new Utility.PlayerData();
     private Utility.Tool _caesarTool;
@@ -103,6 +104,7 @@ public class GameManager : MonoBehaviour
             if(win){
                 _vigenereTool.Unlocked = true;
                 PlayerData.SetTool("Vigenere", _vigenereTool);
+                PlayerData.CompleteLevel(missionNumber);
                 audio.PlayOneShot(winAudio, 10f);  
             }
             else {

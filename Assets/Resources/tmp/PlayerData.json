@@ -13,15 +13,15 @@
     ],
     "Levels": [
         {
+            "Id": 0,
+            "Completed": false
+        },
+        {
             "Id": 1,
             "Completed": false
         },
         {
             "Id": 2,
-            "Completed": false
-        },
-        {
-            "Id": 3,
             "Completed": false
         }
     ]
