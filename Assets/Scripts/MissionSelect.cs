@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class MissionSelect : MonoBehaviour
 {
-    private int mission_no = 0;
+    private int mission_no;
     public TMP_Text title;
     public TMP_Text requirement;
     private string[] titles = {"1 : Tutorial", "2 : The French Connection", "3 : The Handler"};
@@ -26,38 +26,38 @@ public class MissionSelect : MonoBehaviour
 
     void Start()
     {
+        mission_no = 0;
         PlayerData.Load();
         maxUnlocked = PlayerData.GetCompletedLevelCount();
-        displayMission();
+        displayMission(mission_no);
     }
 
     public void nextMission(){
         if(mission_no <2){
-        mission_no+=1;
-        displayMission();
+            mission_no++;
+            displayMission(mission_no);
         }
     }
     
     public void previousMission(){
-        mission_no-=1;
-        displayMission();
+        mission_no--;
+        displayMission(mission_no);
     }
 
-    private void displayMission(){
-        title.SetText(titles[mission_no]);
-        requirement.SetText(requirements[mission_no]);
-        arrow();
-    }
-
-    private void arrow(){
-        if(mission_no <= 0){
+    private void displayMission(int number){
+        title.SetText(titles[number]);
+        requirement.SetText(requirements[number]);
+        if(number <= 0){
             backArrow.SetActive(false);
         }
         else {
             backArrow.SetActive(true);
         }
 
-        if(mission_no >= (maxUnlocked)){
+        if(number >= 2) {
+            frontArrow.SetActive(false);
+        }
+        else if(mission_no >= maxUnlocked) {
             frontArrow.SetActive(false);
         }
         else {

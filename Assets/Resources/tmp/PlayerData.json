@@ -3,26 +3,26 @@
         {
             "Name": "Caeser",
             "Unlocked": true,
-            "ChargeCount": 7
+            "ChargeCount": 10
         },
         {
             "Name": "Vigenere",
-            "Unlocked": true,
+            "Unlocked": false,
             "ChargeCount": 10
         }
     ],
     "Levels": [
         {
             "Id": 0,
-            "Completed": true
+            "Completed": false
         },
         {
             "Id": 1,
-            "Completed": true
+            "Completed": false
         },
         {
             "Id": 2,
-            "Completed": true
+            "Completed": false
         }
     ]
 }
