@@ -40,6 +40,12 @@ public class GameManager : MonoBehaviour
         PlayerData.Load();
         _caesarTool = PlayerData.GetTool("Caeser");
         _vigenereTool = PlayerData.GetTool("Vigenere");
+        StartCoroutine(setInterval(10f, () => {
+            rechargeTool(ref _caesarTool, updateCaesarCharge);
+        }));
+        StartCoroutine(setInterval(10f, () => {
+            rechargeTool(ref _vigenereTool, updateVigenereCharge);
+        }));
 
         Time.timeScale = 1f;
         string currentScene = SceneManager.GetActiveScene().name;
@@ -216,6 +222,24 @@ public class GameManager : MonoBehaviour
             GameObject battery = Instantiate(Resources.Load("Battery")) as GameObject;
             battery.transform.SetParent(vigenereMeter.transform);
             battery.transform.localScale = new Vector3(1,1,1);
+        }
+    }
+
+    private void rechargeTool(ref Utility.Tool tool, System.Action callback)
+    {
+        if(tool.ChargeCount < 10) {
+            tool.ChargeCount++;
+            PlayerData.SetTool(tool.Name, tool);
+            callback();
+        }
+    }
+
+    private IEnumerator setInterval(float interval, System.Action callback)
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(interval);
+            callback();
         }
     }
 }
