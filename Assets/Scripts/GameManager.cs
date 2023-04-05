@@ -25,21 +25,21 @@ public class GameManager : MonoBehaviour
     private string answer;
     private bool hasWon = false;
     public bool hasPlayed = false;
-    private bool vigenereUnlocked = true;// Siwtch to true when you beat first level
     public GameObject vigenereMeter;
     public GameObject caesarMeter;
-    private int vigenereCharge = 10;
-    private int caesarCharge = 10;
     public GameObject caesarTool;
     public GameObject vigenereTool;
 
-    void Awake(){
-        if(vigenereUnlocked){
-            inventory.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().SetText("V");
-        }
-    }
+    private Utility.PlayerData PlayerData = new Utility.PlayerData();
+    private Utility.Tool _caesarTool;
+    private Utility.Tool _vigenereTool;
+
     void Start()
     {
+        PlayerData.Load();
+        _caesarTool = PlayerData.GetTool("Caeser");
+        _vigenereTool = PlayerData.GetTool("Vigenere");
+
         Time.timeScale = 1f;
         string currentScene = SceneManager.GetActiveScene().name;
         if(currentScene=="Challenge1"){
@@ -53,6 +53,10 @@ public class GameManager : MonoBehaviour
         }
         updateCaesarCharge();
         updateVigenereCharge();
+
+        if(_vigenereTool.Unlocked){
+            inventory.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().SetText("V");
+        }
     }
 
     void Update()
@@ -61,7 +65,7 @@ public class GameManager : MonoBehaviour
             caesarTool.SetActive(true);
             vigenereTool.SetActive(false);
         }
-        if(Input.GetKeyDown("2") && vigenereUnlocked){
+        if(Input.GetKeyDown("2") && _vigenereTool.Unlocked){
             vigenereTool.SetActive(true);
             caesarTool.SetActive(false);
         }
@@ -97,7 +101,8 @@ public class GameManager : MonoBehaviour
         if(!hasPlayed){
             hasPlayed = true;
             if(win){
-                vigenereUnlocked = true;
+                _vigenereTool.Unlocked = true;
+                PlayerData.SetTool("Vigenere", _vigenereTool);
                 audio.PlayOneShot(winAudio, 10f);  
             }
             else {
@@ -112,7 +117,7 @@ public class GameManager : MonoBehaviour
     public void caesarDecrypt(){
         int key;
         bool succeed = int.TryParse(keyInputField.text, out key);
-        if(succeed && caesarCharge>=3){
+        if(succeed && _caesarTool.ChargeCount>=3){
             key = key % 26;
             char [] buffer = codeInputField.text.ToUpper().ToCharArray();
             for(int i =0; i < buffer.Length; i++){
@@ -133,7 +138,8 @@ public class GameManager : MonoBehaviour
                 result= result.Substring(0,29);
             }
             resultUI.SetText(result);
-            caesarCharge-=3;
+            _caesarTool.ChargeCount-=3;
+            PlayerData.SetTool("Caeser", _caesarTool);
             updateCaesarCharge();
         }
     }
@@ -182,7 +188,8 @@ public class GameManager : MonoBehaviour
                 oldtext= oldtext.Substring(0,29);
             }
             vigresultUI.SetText(oldtext);
-            vigenereCharge-=3;
+            _vigenereTool.ChargeCount-=3;
+            PlayerData.SetTool("Vigenere", _vigenereTool);
             updateVigenereCharge();
         }
         
@@ -192,7 +199,7 @@ public class GameManager : MonoBehaviour
         foreach (Transform child in caesarMeter.transform) {
              GameObject.Destroy(child.gameObject);
         }
-        for(int i=0; i<caesarCharge; i++) {
+        for(int i=0; i<_caesarTool.ChargeCount; i++) {
             GameObject battery = Instantiate(Resources.Load("Battery")) as GameObject;
             battery.transform.SetParent(caesarMeter.transform);
             battery.transform.localScale = new Vector3(1,1,1);
@@ -203,7 +210,7 @@ public class GameManager : MonoBehaviour
         foreach (Transform child in vigenereMeter.transform) {
              GameObject.Destroy(child.gameObject);
         }
-        for(int i=0; i<vigenereCharge; i++) {
+        for(int i=0; i<_vigenereTool.ChargeCount; i++) {
             GameObject battery = Instantiate(Resources.Load("Battery")) as GameObject;
             battery.transform.SetParent(vigenereMeter.transform);
             battery.transform.localScale = new Vector3(1,1,1);

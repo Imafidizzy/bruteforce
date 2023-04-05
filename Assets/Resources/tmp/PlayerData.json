@@ -1,0 +1,14 @@
+{
+    "Tools": [
+        {
+            "Name": "Caeser",
+            "Unlocked": true,
+            "ChargeCount": 10
+        },
+        {
+            "Name": "Vigenere",
+            "Unlocked": false,
+            "ChargeCount": 10
+        }
+    ]
+}
