@@ -619,7 +619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &479283367
 RectTransform:
   m_ObjectHideFlags: 0
@@ -639,8 +639,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -66.30501}
-  m_SizeDelta: {x: -265.9581, y: -162.3469}
+  m_AnchoredPosition: {x: 0, y: -54.516}
+  m_SizeDelta: {x: -258.4314, y: -156.64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &479283368
 MonoBehaviour:
@@ -715,7 +715,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 115.34164, y: 105.89}
+  m_AnchoredPosition: {x: 115.33, y: 135.6}
   m_SizeDelta: {x: 143.7931, y: 46.192}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &518026475
@@ -1484,8 +1484,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -217.30252, y: -97.63625}
-  m_SizeDelta: {x: 72.3822, y: 23.9275}
+  m_AnchoredPosition: {x: -225.3, y: -115}
+  m_SizeDelta: {x: 56.388, y: 22.9867}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1572070599
 MonoBehaviour:
@@ -1652,7 +1652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000078678, y: 0.0000038147}
+  m_AnchoredPosition: {x: -0.0017245, y: 28.2}
   m_SizeDelta: {x: 506.9838, y: 184.9284}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1590037113
@@ -1675,12 +1675,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " - The goal of each round is to figure out the encrypted message in the
-    center of the screen.\n - In the CLUES section, you will find all clues available
-    to you for that round.\n - In the TOOLS section, you will find all hacker tools
-    available to you for that round. \n - Use the clues and tools in tandem to figure
-    out the hidden message.\n \nThe remaining instructions are no applicable for
-    this demo. ENJOY! :)"
+  m_text: " - The goal of each level is to decrypt the ciphertext on the screen.\n
+    - Attempt decrypting the ciphertext using decryption tools giving to you per
+    level.\n - These tools usually require you to enter the right key in order for
+    you to get the correct answers.\n - Clues to guide you to the choosing the right
+    key are hidden in the pictures and text on the left side of each level.\n - When
+    you think you have the right decryption, enter the decrypted hidden message into
+    the text box under the timer, and press \"HACK\" \n- If wrong, nothing happens.
+    You have a limited amount of time to get it right.\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1792,7 +1794,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 98}
+  m_AnchoredPosition: {x: 0, y: 135.60002}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1655345516
@@ -2210,7 +2212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -98.5, y: 98}
+  m_AnchoredPosition: {x: -98.495, y: 135.6}
   m_SizeDelta: {x: 159.0561, y: 61.9681}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1987042099
