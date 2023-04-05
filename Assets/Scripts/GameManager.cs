@@ -68,14 +68,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {   
-        if(Input.GetKeyDown("1")){
-            caesarTool.SetActive(true);
-            vigenereTool.SetActive(false);
-        }
-        if(Input.GetKeyDown("2") && _vigenereTool.Unlocked){
-            vigenereTool.SetActive(true);
-            caesarTool.SetActive(false);
-        }
+        
         string scoreText;
         timer -= Time.deltaTime;
         if(timer > 0 && !hasWon){
@@ -92,9 +85,6 @@ public class GameManager : MonoBehaviour
         if(timer <=0 || hasWon){
             EndLevel(hasWon);
         }
-
-        //charge logic
-
     }
 
     public void AttemptHack(){
@@ -152,6 +142,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+       public void openCeasar(){
+            caesarTool.SetActive(true);
+            vigenereTool.SetActive(false);
+        
+    }
+
+    public void openVigenere(){
+         if( _vigenereTool.Unlocked){
+            vigenereTool.SetActive(true);
+            caesarTool.SetActive(false);
+        }
+    }
+
     public void vigenereDecrypt()
     {
         string key = vigkeyInputField.text;
@@ -167,7 +170,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Means key only contains letters
-        if(succeed)
+        if(succeed && _vigenereTool.ChargeCount>=3)
         {
             key = key.ToUpper();
             string text = vigcodeInputField.text.ToUpper();

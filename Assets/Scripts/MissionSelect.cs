@@ -48,7 +48,7 @@ public class MissionSelect : MonoBehaviour
             backArrow.SetActive(true);
         }
 
-        if(mission_no == (maxUnlocked)){
+        if(mission_no >= (maxUnlocked)){
             frontArrow.SetActive(false);
         }
         else {
