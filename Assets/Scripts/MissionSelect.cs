@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,12 @@ public class MissionSelect : MonoBehaviour
     private string[] requirements = {"Tools Needed: Caesar Tool", "Tools Needed: Vigenere Tool","Tools Needed: Caesar Tool, Vigenere Tool"};
     public GameObject backArrow;
     public GameObject frontArrow;
+    public TMP_Text displayText;
+    public Image displayed;
+    string caesarDesc = "Caesar";
+    string vigenereDesc = "Vigenere";
+    public Sprite caesar;
+    public Sprite vigenere;
     private int maxUnlocked;
 
     private Utility.PlayerData PlayerData = new Utility.PlayerData();
@@ -67,6 +74,18 @@ public class MissionSelect : MonoBehaviour
             SceneManager.LoadScene("Challenge3");
         }
     }
+
+    public void showCaesar(){
+        displayed.sprite = caesar;
+        displayText.SetText(caesarDesc);
+
+    }
+    public void showVigenere(){
+        displayed.sprite = vigenere;
+        displayText.SetText(vigenereDesc);
+    }
+
+
 
     
 }
