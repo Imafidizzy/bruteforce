@@ -619,7 +619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &479283367
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1675,11 +1675,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " - The goal of each level is to decrypt the ciphertext on the screen.\n
-    - Attempt decrypting the ciphertext using decryption tools giving to you per
-    level.\n - These tools usually require you to enter the right key in order for
-    you to get the correct answers.\n - Clues to guide you to the choosing the right
-    key are hidden in the pictures and text on the left side of each level.\n - When
+  m_text: " - The goal of each level is to decrypt the ciphertext on the screen.\n-
+    Attempt decrypting the ciphertext using decryption tools giving to you per level.\n
+    - These tools usually require you to enter the right key in order for you to
+    get the correct answers.\n - Clues to guide you to the choosing the right key
+    are hidden in the pictures and text on the left side of each level.\n - When
     you think you have the right decryption, enter the decrypted hidden message into
     the text box under the timer, and press \"HACK\" \n- If wrong, nothing happens.
     You have a limited amount of time to get it right.\n"
