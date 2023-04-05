@@ -10,5 +10,19 @@
             "Unlocked": false,
             "ChargeCount": 10
         }
+    ],
+    "Levels": [
+        {
+            "Id": 1,
+            "Completed": false
+        },
+        {
+            "Id": 2,
+            "Completed": false
+        },
+        {
+            "Id": 3,
+            "Completed": false
+        }
     ]
 }
