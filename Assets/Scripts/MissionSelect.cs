@@ -20,10 +20,14 @@ public class MissionSelect : MonoBehaviour
     string vigenereDesc = "Vigenere";
     public Sprite caesar;
     public Sprite vigenere;
+    private int maxUnlocked;
 
+    private Utility.PlayerData PlayerData = new Utility.PlayerData();
 
     void Start()
     {
+        PlayerData.Load();
+        maxUnlocked = PlayerData.GetCompletedLevelCount();
         displayMission();
     }
 
@@ -51,7 +55,7 @@ public class MissionSelect : MonoBehaviour
             backArrow.SetActive(true);
         }
 
-        if(mission_no == (titles.Length -1)){
+        if(mission_no >= (maxUnlocked)){
             frontArrow.SetActive(false);
         }
         else {

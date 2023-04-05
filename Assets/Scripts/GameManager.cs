@@ -25,21 +25,28 @@ public class GameManager : MonoBehaviour
     private string answer;
     private bool hasWon = false;
     public bool hasPlayed = false;
-    private bool vigenereUnlocked = true;// Siwtch to true when you beat first level
     public GameObject vigenereMeter;
     public GameObject caesarMeter;
-    private int vigenereCharge = 10;
-    private int caesarCharge = 10;
     public GameObject caesarTool;
     public GameObject vigenereTool;
+    public int missionNumber;
 
-    void Awake(){
-        if(vigenereUnlocked){
-            inventory.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().SetText("V");
-        }
-    }
+    private Utility.PlayerData PlayerData = new Utility.PlayerData();
+    private Utility.Tool _caesarTool;
+    private Utility.Tool _vigenereTool;
+
     void Start()
     {
+        PlayerData.Load();
+        _caesarTool = PlayerData.GetTool("Caeser");
+        _vigenereTool = PlayerData.GetTool("Vigenere");
+        StartCoroutine(setInterval(10f, () => {
+            rechargeTool(ref _caesarTool, updateCaesarCharge);
+        }));
+        StartCoroutine(setInterval(10f, () => {
+            rechargeTool(ref _vigenereTool, updateVigenereCharge);
+        }));
+
         Time.timeScale = 1f;
         string currentScene = SceneManager.GetActiveScene().name;
         if(currentScene=="Challenge1"){
@@ -53,18 +60,15 @@ public class GameManager : MonoBehaviour
         }
         updateCaesarCharge();
         updateVigenereCharge();
+
+        if(_vigenereTool.Unlocked){
+            inventory.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().SetText("V");
+        }
     }
 
     void Update()
     {   
-        if(Input.GetKeyDown("1")){
-            caesarTool.SetActive(true);
-            vigenereTool.SetActive(false);
-        }
-        if(Input.GetKeyDown("2") && vigenereUnlocked){
-            vigenereTool.SetActive(true);
-            caesarTool.SetActive(false);
-        }
+        
         string scoreText;
         timer -= Time.deltaTime;
         if(timer > 0 && !hasWon){
@@ -81,9 +85,6 @@ public class GameManager : MonoBehaviour
         if(timer <=0 || hasWon){
             EndLevel(hasWon);
         }
-
-        //charge logic
-
     }
 
     public void AttemptHack(){
@@ -97,7 +98,9 @@ public class GameManager : MonoBehaviour
         if(!hasPlayed){
             hasPlayed = true;
             if(win){
-                vigenereUnlocked = true;
+                _vigenereTool.Unlocked = true;
+                PlayerData.SetTool("Vigenere", _vigenereTool);
+                PlayerData.CompleteLevel(missionNumber);
                 audio.PlayOneShot(winAudio, 10f);  
             }
             else {
@@ -112,7 +115,7 @@ public class GameManager : MonoBehaviour
     public void caesarDecrypt(){
         int key;
         bool succeed = int.TryParse(keyInputField.text, out key);
-        if(succeed && caesarCharge>=3){
+        if(succeed && _caesarTool.ChargeCount>=3){
             key = key % 26;
             char [] buffer = codeInputField.text.ToUpper().ToCharArray();
             for(int i =0; i < buffer.Length; i++){
@@ -133,8 +136,22 @@ public class GameManager : MonoBehaviour
                 result= result.Substring(0,29);
             }
             resultUI.SetText(result);
-            caesarCharge-=3;
+            _caesarTool.ChargeCount-=3;
+            PlayerData.SetTool("Caeser", _caesarTool);
             updateCaesarCharge();
+        }
+    }
+
+       public void openCeasar(){
+            caesarTool.SetActive(true);
+            vigenereTool.SetActive(false);
+        
+    }
+
+    public void openVigenere(){
+         if( _vigenereTool.Unlocked){
+            vigenereTool.SetActive(true);
+            caesarTool.SetActive(false);
         }
     }
 
@@ -153,7 +170,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Means key only contains letters
-        if(succeed)
+        if(succeed && _vigenereTool.ChargeCount>=3)
         {
             key = key.ToUpper();
             string text = vigcodeInputField.text.ToUpper();
@@ -182,7 +199,8 @@ public class GameManager : MonoBehaviour
                 oldtext= oldtext.Substring(0,29);
             }
             vigresultUI.SetText(oldtext);
-            vigenereCharge-=3;
+            _vigenereTool.ChargeCount-=3;
+            PlayerData.SetTool("Vigenere", _vigenereTool);
             updateVigenereCharge();
         }
         
@@ -192,7 +210,7 @@ public class GameManager : MonoBehaviour
         foreach (Transform child in caesarMeter.transform) {
              GameObject.Destroy(child.gameObject);
         }
-        for(int i=0; i<caesarCharge; i++) {
+        for(int i=0; i<_caesarTool.ChargeCount; i++) {
             GameObject battery = Instantiate(Resources.Load("Battery")) as GameObject;
             battery.transform.SetParent(caesarMeter.transform);
             battery.transform.localScale = new Vector3(1,1,1);
@@ -203,10 +221,28 @@ public class GameManager : MonoBehaviour
         foreach (Transform child in vigenereMeter.transform) {
              GameObject.Destroy(child.gameObject);
         }
-        for(int i=0; i<vigenereCharge; i++) {
+        for(int i=0; i<_vigenereTool.ChargeCount; i++) {
             GameObject battery = Instantiate(Resources.Load("Battery")) as GameObject;
             battery.transform.SetParent(vigenereMeter.transform);
             battery.transform.localScale = new Vector3(1,1,1);
+        }
+    }
+
+    private void rechargeTool(ref Utility.Tool tool, System.Action callback)
+    {
+        if(tool.ChargeCount < 10) {
+            tool.ChargeCount++;
+            PlayerData.SetTool(tool.Name, tool);
+            callback();
+        }
+    }
+
+    private IEnumerator setInterval(float interval, System.Action callback)
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(interval);
+            callback();
         }
     }
 }
