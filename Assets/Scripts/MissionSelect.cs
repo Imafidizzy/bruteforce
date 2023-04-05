@@ -32,8 +32,10 @@ public class MissionSelect : MonoBehaviour
     }
 
     public void nextMission(){
+        if(mission_no <2){
         mission_no+=1;
         displayMission();
+        }
     }
     
     public void previousMission(){
