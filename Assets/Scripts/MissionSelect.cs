@@ -13,6 +13,7 @@ public class MissionSelect : MonoBehaviour
     private string[] requirements = {"Tools Needed: Caesar Tool", "Tools Needed: Vigenere Tool","Tools Needed: Caesar Tool, Vigenere Tool"};
     public GameObject backArrow;
     public GameObject frontArrow;
+    private int maxUnlocked = 0;
 
 
     void Start()
@@ -44,7 +45,7 @@ public class MissionSelect : MonoBehaviour
             backArrow.SetActive(true);
         }
 
-        if(mission_no == (titles.Length -1)){
+        if(mission_no == (maxUnlocked)){
             frontArrow.SetActive(false);
         }
         else {
